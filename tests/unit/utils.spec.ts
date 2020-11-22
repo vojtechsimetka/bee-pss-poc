@@ -30,9 +30,9 @@ describe('utils', () => {
   });
 
   it('overlayAddressFromEthereumAddress', () => {
-    expect(utils.overlayAddressFromEthereumAddress('1815cac638d1525b47f848daf02b7953e4edd15c', '0100000000000000')).to.equal('b003840cac8f71dc3e6025dbccae613fd107dcb2fb187808b54cab92cfdd8299');
-    expect(utils.overlayAddressFromEthereumAddress('0x1815cac638d1525b47f848daf02b7953e4edd15c', '0x0100000000000000')).to.equal('b003840cac8f71dc3e6025dbccae613fd107dcb2fb187808b54cab92cfdd8299');
-    expect(utils.overlayAddressFromEthereumAddress('0737e7c2e82fac12ca9e2bae01bea910593300e6', '0x0100000000000000')).to.equal('ba898f4dd93c5b29dc2d9daff3ef3d183fa6b5bfac9c23d975c0ee1fb06fcad9');
-    expect(utils.overlayAddressFromEthereumAddress('d26bc1715e933bd5f8fad16310042f13abc16159', '0x0100000000000000')).to.equal('8e186467e0ed20b73667b5353210c0e650401cde0461c25c6b3e4a1f636b8cb8');
+    expect(utils.overlayAddressFromEthereumAddress('1815cac638d1525b47f848daf02b7953e4edd15c', 1)).to.equal('b003840cac8f71dc3e6025dbccae613fd107dcb2fb187808b54cab92cfdd8299');
+    expect(utils.overlayAddressFromEthereumAddress('0x1815cac638d1525b47f848daf02b7953e4edd15c', 1)).to.equal('b003840cac8f71dc3e6025dbccae613fd107dcb2fb187808b54cab92cfdd8299');
+    expect(utils.overlayAddressFromEthereumAddress('0737e7c2e82fac12ca9e2bae01bea910593300e6', 1)).to.equal('ba898f4dd93c5b29dc2d9daff3ef3d183fa6b5bfac9c23d975c0ee1fb06fcad9');
+    expect(utils.overlayAddressFromEthereumAddress('d26bc1715e933bd5f8fad16310042f13abc16159', 1)).to.equal('8e186467e0ed20b73667b5353210c0e650401cde0461c25c6b3e4a1f636b8cb8');
   });
 });

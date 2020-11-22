@@ -1,8 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
     <Input />
     <Output />
+    <div class="welcome">
+      <h1>Postal Service over Swarm (PSS) demo</h1>
+      <p>
+        Send annonymous and persistent messages to any Bee node or neighborhood.
+        Your message will be indistinguishable from other Bee data.
+        You can read more in the
+        <a href="https://swarm-gateways.net/bzz:/latest.bookofswarm.eth/">Book of Swarm</a>
+        section 4.4. PSS: Direct push messaging with mailboxing
+      </p>
+    </div>
   </div>
 </template>
 
@@ -27,6 +36,14 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+body {
+  margin: 10px;
+  padding: 0px;
+}
+
+.welcome {
+  padding: 10px;
 }
 </style>

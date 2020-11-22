@@ -1,55 +1,45 @@
 <template>
-  <div class="show-paste">
-    <h3>Receive</h3>
-    <div>
-      <ul id="receieved-messages">
-        <li v-for="message in messages" :key="message">
-            {{ message }}
-        </li>
-      </ul>
+  <div v-if="messages.length">
+    <h4>Other messages in the topic</h4>
+    <div class="messages">
+      <div
+        v-for="(message, index) in messages"
+        :key="index"
+      >
+          {{ message.text }}
+      </div>
     </div>
-
-    <audio ref="audio">
-      <source src="assets/bzz.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
   </div>
 </template>
 
 <script lang="ts">
+import { getMessageListener, isBee } from '@/utils';
 import { Component, Vue } from 'vue-property-decorator';
-
-const gatewayWS = 'ws://localhost:8082';
-const topic = 'ws-poc';
-
-const listen = (openCallback: () => void, messageCallback: (message: string) => void) => {
-  // Create WebSocket connection.
-  const socket = new WebSocket(`${gatewayWS}/pss/subscribe/${topic}`);
-
-  // Connection opened
-  socket.addEventListener('error', (event) => {
-    console.log(event);
-  });
-
-  // Listen for messages
-  socket.addEventListener('message', async (event) => {
-    // callback(event.data);
-    messageCallback(await event.data.text());
-  });
-
-  // Connection opened
-  socket.addEventListener('open', () => openCallback());
-};
+import { gateway, topic } from '@/defaults';
 
 @Component
-export default class HelloWorld extends Vue {
-  messages = [{ message: 'Welcome' }]
+export default class Output extends Vue {
+  messages: {text: string}[] = []
 
-  mounted() {
-    listen(console.log, (message: string) => {
-      const b = this.$refs.audio;
-      (b as HTMLAudioElement).play();
-      this.messages.push({ message });
+  async mounted() {
+    let url = `${window.location.protocol.endsWith('s') ? 'wws' : 'ws'}://${window.location.host}`;
+    if (!await isBee(`${window.location.protocol}//${window.location.host}`)) url = `ws://${gateway}`;
+    const listener = getMessageListener(url, topic);
+
+    listener.addEventListener('message', async (event: MessageEvent) => {
+      try {
+        const text = await event.data.text();
+
+        if (text) {
+          this.messages.push({ text });
+
+          // eslint-disable-next-line global-require
+          const audio = new Audio(require('../assets/bzz.mp3'));
+          if (audio) audio.play();
+        }
+      } catch (e) {
+        console.error(e);
+      }
     });
   }
 }
@@ -57,18 +47,19 @@ export default class HelloWorld extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+h4 {
+  text-align: left;
+  margin-left: 10px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+div.messages {
+  text-align: left;
+  display: flex;
+  flex-direction: column-reverse;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+div.messages div {
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid rgba(1,1,1,0.05);
 }
 </style>
