@@ -70,12 +70,20 @@ export default class Input extends Vue {
 
   async sendMessage(): Promise<void> {
     this.sending = true;
-    await send(
-      this.url,
-      topic,
-      this.overlayAddress.substr(0, 4),
-      this.messageText,
-    );
+    try {
+      await send(
+        this.url,
+        topic,
+        this.overlayAddress.substr(0, 4),
+        this.messageText,
+      );
+
+      // eslint-disable-next-line global-require
+      const audio = new Audio(require('../assets/bzz.mp3'));
+      if (audio) audio.play();
+    } catch (e) {
+      console.error(e);
+    }
     this.sending = false;
   }
 }

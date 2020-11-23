@@ -36,7 +36,7 @@ export default class Output extends Vue {
           this.messages.push({ text });
 
           // eslint-disable-next-line global-require
-          const audio = new Audio(require('../assets/bzz.mp3'));
+          const audio = new Audio(require('../assets/bzzzzzz.mp3'));
           if (audio) audio.play();
         }
       } catch (e) {
