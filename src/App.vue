@@ -2,7 +2,7 @@
   <div id="app">
     <Input />
     <Output />
-    <div class="welcome">
+    <!-- <div class="welcome">
       <h1>Postal Service over Swarm (PSS) demo</h1>
       <p>
         Send annonymous and persistent messages to any Bee node or neighborhood.
@@ -11,7 +11,7 @@
         <a href="https://swarm-gateways.net/bzz:/latest.bookofswarm.eth/">Book of Swarm</a>
         section 4.4. PSS: Direct push messaging with mailboxing
       </p>
-    </div>
+    </div> -->
   </div>
 </template>
 

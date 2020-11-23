@@ -3,9 +3,9 @@
 ARCHIVE=website.tar
 
 rm -rf "$ARCHIVE"
-cd ./dist
-tar -zcvf  "../$ARCHIVE" .
-cd ../
+# cd ./dist
+tar -cvC dist . >$ARCHIVE
+# cd ../
 
 curl \
     -X POST \

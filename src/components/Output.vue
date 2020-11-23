@@ -1,12 +1,12 @@
 <template>
   <div v-if="messages.length">
-    <h4>Other messages in the topic</h4>
+    <h4>Messages from other nodes for me in "{{ topic }}" topic</h4>
     <div class="messages">
       <div
         v-for="(message, index) in messages"
         :key="index"
       >
-          {{ message.text }}
+        {{ message.text }}
       </div>
     </div>
   </div>
@@ -20,6 +20,8 @@ import { gateway, topic } from '@/defaults';
 @Component
 export default class Output extends Vue {
   messages: {text: string}[] = []
+
+  topic = topic
 
   async mounted() {
     let url = `${window.location.protocol.endsWith('s') ? 'wws' : 'ws'}://${window.location.host}`;
@@ -57,9 +59,8 @@ div.messages {
   flex-direction: column-reverse;
 }
 
-div.messages div {
-  width: 100%;
+div.messages > div {
   padding: 10px;
-  border-bottom: 1px solid rgba(1,1,1,0.05);
+  border-bottom: 1px solid rgba(1,1,1,0.1);
 }
 </style>
